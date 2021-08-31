@@ -1,0 +1,70 @@
+<form #pretragaZahteva="ngForm">
+  <mat-card class="card-zahtev-container mat-elevation-z8">
+    <mat-card-title class="card-zahtev-title">Pretraga proizvoda</mat-card-title>
+    <mat-card-content>
+
+      <div class="example-form">
+        <div class="example-full-width">
+
+          <table mat-table [dataSource]="dataSource" class="table-example" matSort>
+            <ng-container matColumnDef="proizvodID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" floatLabel="never">
+                  <input matInput placeholder="ID zahteva" name="zahtevID" [formControl]="idFilter">
+                </mat-form-field></th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.proizvodID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nazivProizvoda">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" floatLabel="never">
+                  <input matInput placeholder="Naziv proizvoda" name="naziv" [formControl]="nazivFilter">
+                </mat-form-field></th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.nazivProizvoda}} </td>
+            </ng-container>
+            <ng-container matColumnDef="datum">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Datum </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element">{{element.datumProizvodnje | date:  "mediumDate"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cena">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Cena</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.cena}} </td>
+            </ng-container>
+            <ng-container matColumnDef="vrstaProizvoda">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Vrsta Proizvoda</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.vrstaProizvoda}} </td>
+            </ng-container>
+            <ng-container matColumnDef="trenutnoStanjeZaliha">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Trenutno Stanje Zaliha</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.trenutnoStanjeZaliha}} </td>
+            </ng-container>
+            <ng-container matColumnDef="jedinicaMere">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Jedinica Mere</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element">{{element.jedinicaMere.nazivJediniceMere}} </td>
+            </ng-container>
+
+            <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsProizvod"></tr>
+            <tr mat-row class="table-row-height" (click)="onClick(row); clickedRows.add(row)"
+                [class.demo-row-is-clicked]="clickedRows.has(row)"
+                *matRowDef="let row; columns: displayedColumnsProizvod;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter</td>
+            </tr>
+          </table>
+          <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
+        <div class="example-full-first">
+          <div class="example-button-row-save">
+            <button mat-raised-button type="button" class="button-example td-button"
+                    (click)="saveProizvodInStorage(clickedRow)" routerLink="/racun-{{forma}}">
+              <mat-icon>check</mat-icon>Izaberi proizvod</button>
+            <button mat-raised-button type="button"  class="button-example" routerLink="/racun-{{forma}}">
+              <mat-icon>reply</mat-icon>Odustani</button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+
+

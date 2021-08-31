@@ -1,0 +1,96 @@
+@media screen and (max-width: 30rem) and (min-width: 600px), (min-width: 600px) {
+  .card-zahtev-container {
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 2.7%;
+    margin-bottom: 1.7%;
+    border-radius: 0;
+  }
+}
+.card-zahtev-title{
+  border-bottom: 1px solid grey;
+  font-size: 21px;
+}
+.example-form {
+  min-width: 20rem;
+  width: 100%;
+  font-size: 13.5px;
+  color : grey;
+}
+.example-full-width {
+  max-width: 95%;
+  margin-left: 2.5%;
+  margin-top: 2%;
+}
+.example-full-first{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.example-button-row-save{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.button-example{
+  color: grey;
+  width: 11.5rem;
+  border-radius: 0;
+}
+
+.table-row-height{
+  height: 30px;
+  word-wrap: break-word;
+}
+.table-date-size{
+  font-size: 13px;
+  text-align: center;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+}
+.td-button {
+  margin-right: 1%;
+  padding-right: 8px;
+}
+td, th {
+  width: 14%;
+}
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  padding-left: 0;
+}
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: 0;
+}
+.example-width{
+  margin-right: auto;
+}
+.mat-paginator{
+  height: 40px;
+  padding-top: 0;
+}
+.demo-row-is-clicked {
+  background-color: #dfdfdf;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+.filter{
+  display: block;
+}
+.mat-form-field {
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  text-align: center;
+  width: 8rem;
+}

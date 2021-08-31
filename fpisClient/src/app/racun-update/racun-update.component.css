@@ -1,0 +1,166 @@
+@media screen and (max-width: 30rem) and (min-width: 900px), (min-width: 900px) {
+  .card-potvrda-container {
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 2%;
+    margin-bottom: 1.7%;
+    border-radius: 0;
+  }
+}
+.card-potvrda-title{
+  border-bottom: 1px solid grey;
+  font-size: 21px;
+}
+.example-form {
+  min-width: 20rem;
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+  font-size: 13.5px;
+  color : grey;
+}
+.example-full-width {
+  max-width: 100%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.example-full-first{
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 0.7%;
+}
+.example-full-end{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.example-button-row{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.example-button-row-save{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.example-column{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: flex-start;
+  margin-right: auto;
+}
+.example-column-stavke{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+}
+.example-label{
+  margin-right: auto;
+}
+.button-example{
+  color: grey;
+  width: 11rem;
+  border-radius: 0;
+}
+.button-example-width{
+  color: grey;
+  width: 100%;
+  border-radius: 0;
+}
+.example-placanje{
+  width: 90%;
+}
+.example-radnici{
+  width: 35.5%;
+  margin-right: 3%;
+}
+.table-style{
+  width: 50%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+.table-example{
+  width: 100%;
+  margin-bottom: 2%;
+}
+.table-row-height{
+  height: 30px;
+  word-wrap: break-word;
+}
+.table-date-size{
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+}
+.td-button {
+  margin-right: 1%;
+  padding-right: 8px;
+}
+td, th {
+  width: 17%;
+}
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+padding-left: 0;
+}
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+padding-right: 0;
+}
+.example-width{
+margin-right: auto;
+}
+.example-width-opis{
+margin-left: auto;
+width: 55%;
+}
+.example-width-nacini{
+width: 50%;
+}
+.example-width-proizvodi{
+margin-left: 1%;
+max-width: 90%;
+}
+.ex-napomena{
+height: 40px;
+margin-top: -2px;
+margin-bottom: -2px;
+text-align: left;
+}
+.ex-nacini{
+height: 70px;
+margin-top: -2px;
+margin-bottom: -2px;
+text-align: left;
+}
+.example-width-end{
+margin-left: 2%;
+max-width: 100%;
+}
+.container {
+min-height: 100%;
+max-width: 100%;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+align-content: center;
+margin-top: 1%;
+margin-bottom: 1%;
+}
+.mat-paginator{
+  height: 40px;
+  padding-top: 0;
+}
+.demo-row-is-clicked {
+  background-color: #dfdfdf;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+

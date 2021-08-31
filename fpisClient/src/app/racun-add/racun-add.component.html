@@ -1,0 +1,237 @@
+<form #addRacunForm="ngForm">
+  <mat-card class="card-potvrda-container mat-elevation-z8">
+    <mat-card-title class="card-potvrda-title">Unos Racuna</mat-card-title>
+    <mat-card-content>
+
+      <div class="example-form">
+        <mat-form-field class="example-full-first">
+          <mat-label style="font-size: 15px">Racun kupca ID:</mat-label>
+          <input matInput disabled [value]="idRacuna">
+        </mat-form-field>
+      </div>
+
+      <div class="example-form">
+        <div class="example-full-first example-button-row-save">
+            <mat-form-field class="example-label" >
+              <input matInput type="text" placeholder="Rok za placanje:" name="rok"
+                     [(ngModel)]="racun.rokPlacanjaKupca">
+              <mat-hint align="end">x-day</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="example-width-nacini">
+              <textarea matInput class="ex-napomena" type="text" placeholder="Napomena racuna kupca:" name="napomena"
+                        [(ngModel)]="racun.napomenaRacunaKupca">
+              </textarea>
+            </mat-form-field>
+          </div>
+      </div>
+
+      <div class="example-form">
+        <div class="example-full-first example-full-end example-button-row-save">
+            <div class="example-column">
+              <mat-form-field class="example-placanje" appearance="fill">
+                <mat-label>Izaberite moguce nacine placanja</mat-label>
+                <mat-select placeholder="naciniPlacanja" name="nacini" [(ngModel)]="selectedNaciniPlacanja"
+                            [compareWith]="equals">
+                  <mat-option *ngFor="let nacini of naciniPlacanja.placanja" [value]="nacini">
+                    {{nacini.nazivPlacanja}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <td><button mat-stroked-button type="button" class="button-example"
+                        (click)="dodajNacinPlacanja(selectedNaciniPlacanja)">
+              <mat-icon>playlist_add</mat-icon>Dodaj nacin placanja</button></td>
+          </div>
+          <table mat-table [dataSource]="dataSourceNacinPlacanja" class="table-style">
+            <ng-container matColumnDef="nacinPlacanjaID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> Nacin Placanja ID</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element">{{element.nacinPlacanjaID}}</td>
+            </ng-container>
+            <ng-container matColumnDef="nazivPlacanja">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> Naziv Placanja </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element">{{element.nazivPlacanja}}</td>
+            </ng-container>
+
+            <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsPlacanja"></tr>
+            <tr mat-row class="table-row-height" *matRowDef="let row; columns: displayedColumnsPlacanja;"></tr>
+          </table>
+          </div>
+      </div>
+
+      <div class="example-form">
+        <div class= "example-full-first example-button-row-save">
+            <button mat-stroked-button type="button" class="button-example example-width"
+                    (click)="formaOtpremnica()" routerLink="/otpremnica">
+              <mat-icon>search</mat-icon>Pretraga otpremnica</button>
+
+          <table mat-table [dataSource]="dataSource" class="table-style">
+            <ng-container matColumnDef="otpremnicaID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> OtpremnicaID</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.otpremnicaZaKupcaID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="datum">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> Datum </th>
+              <td mat-cell class="table-date-size" *matCellDef=
+                "let element">{{element.datumOtpremanja | date:  "mediumDate"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="kupacID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> KupacID </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.kupacOtp.kupacID}} </td>
+            </ng-container>
+
+            <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsOtpremnica"></tr>
+            <tr mat-row class="table-row-height" *matRowDef="let row; columns: displayedColumnsOtpremnica;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="example-form">
+        <title>Stavke racuna:</title>
+        <div class= "example-full-width">
+
+          <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+               fxLayoutGap="1%" fxLayoutAlign="center">
+            <div fxFlex="28%">
+              <button mat-stroked-button type="button" class="button-example-width"
+                      (click)="formaProizvoda()" routerLink="/proizvod">
+                <mat-icon>search</mat-icon>Pretraga proizvoda</button>
+            </div>
+              <div fxFlex="18%">
+              <mat-form-field class="example-width-proizvodi">
+                <mat-label style="font-size: 15px">Proizvod ID:</mat-label>
+                <input matInput disabled [value]="biraniProizvod.proizvodID" name="proizvodID">
+              </mat-form-field>
+            </div>
+            <div fxFlex="18%">
+              <mat-form-field class="example-width-proizvodi">
+                <mat-label style="font-size: 15px">Naziv proizvoda:</mat-label>
+                <input matInput disabled [value]="biraniProizvod.nazivProizvoda" name="nazivProizvoda">
+              </mat-form-field>
+            </div>
+            <div fxFlex="18%">
+              <mat-form-field class="example-width-proizvodi">
+                <mat-label style="font-size: 15px">Jedinica mere:</mat-label>
+                <input matInput disabled [value]="biraniProizvod.jedinicaMere.nazivJediniceMere"
+                       name="nazivJedMere">
+              </mat-form-field>
+            </div>
+            <div fxFlex="18%">
+              <mat-form-field class="example-width-proizvodi">
+                <mat-label style="font-size: 15px">Cena:</mat-label>
+                <input matInput disabled [value]="biraniProizvod.cena" name="cena">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+               fxLayoutGap="2%" fxLayoutAlign="center">
+            <div fxFlex="22%">
+              <mat-form-field class="example-width-proizvodi">
+                <mat-label style="font-size: 15px">Narucena kolicina:</mat-label>
+                <input matInput [(ngModel)]="novaStavka.kolicinaRobeZaPlacanje" name="kolicina">
+              </mat-form-field>
+            </div>
+            <div fxFlex="22%">
+              <mat-form-field class="example-width-proizvodi">
+                <mat-label style="font-size: 15px">Rabat:</mat-label>
+                <input matInput [(ngModel)]="novaStavka.rabat" name="rabat">
+              </mat-form-field>
+            </div>
+            <div fxFlex="28%">
+              <button mat-stroked-button type="button" class="button-example-width" (click)="dodajStavku()">
+                <mat-icon>playlist_add</mat-icon>Dodaj stavku</button>
+            </div>
+            <div fxFlex="28%">
+              <button mat-stroked-button type="button" class="button-example-width" (click)="izracunajCenu()">
+                <mat-icon>add_circle_outline</mat-icon>Izracunaj cenu stavke</button>
+            </div>
+          </div>
+
+          <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="center">
+            <div fxFlex="80%">
+              <table mat-table [dataSource]="dataSourceS" style="width: 100%" matSort>
+                <ng-container matColumnDef="stavkaRacunaKupcaID">
+                  <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>StavkaRacuna ID</th>
+                  <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.stavkaRacunaKupcaID}} </td>
+                </ng-container>
+                <ng-container matColumnDef="kolicinaRobeZaPlacanje">
+                  <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Kolicina Robe</th>
+                  <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.kolicinaRobeZaPlacanje}} </td>
+                </ng-container>
+                <ng-container matColumnDef="rabat">
+                  <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Rabat</th>
+                  <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.rabat}} % </td>
+                </ng-container>
+                <ng-container matColumnDef="proizvodID">
+                  <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>ProizvodID</th>
+                  <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.proizvodStavkeRacuna.proizvodID}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cenaSaPopustom">
+                  <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Cena Sa Popustom </th>
+                  <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.cenaSaPopustom}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nazivProizvoda">
+                  <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Naziv Proizvoda </th>
+                  <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.proizvodStavkeRacuna.proizvodID}} </td>
+                </ng-container>
+
+                <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsStavka"></tr>
+                <tr mat-row class="table-row-height" (click)="onClick(row); clickedRows.add(row)"
+                    [class.demo-row-is-clicked]="clickedRows.has(row)"
+                    *matRowDef="let row; columns: displayedColumnsStavka;"></tr>
+              </table>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter</td>
+              </tr>
+              <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+            <div fxFlex="20%">
+              <div class="example-column-stavke">
+                <button mat-stroked-button type="button" class="button-example-width"
+                        style="margin-top: 2%; margin-bottom: 2%" (click)="izmeniStavku()">
+                  <mat-icon>edit</mat-icon>Izmeni stavku</button>
+                <button mat-stroked-button type="button" class="button-example-width"
+                        (click)="obrisiStavku()">
+                  <mat-icon>delete_outline</mat-icon>Izbrisi stavku</button>
+              </div>
+            </div>
+          </div>
+          <div class="example-button-row" style="margin-left: 8%; margin-top: 2%">
+            <button mat-stroked-button type="button" style="margin-right: 3%; color: gray; width: 13rem; border-radius: 0" (click)="ukupnaCena()">
+              <mat-icon>add_circle_outline</mat-icon>Izracunaj ukupnu cenu</button>
+            <mat-form-field>
+              <mat-label style="font-size: 15px">Ukupna cena:</mat-label>
+              <input matInput disabled [value]="ukupnaCenaStavki" name="ukupnaCena">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-form">
+        <div class="example-full-first example-full-end">
+          <div class="example-button-row">
+            <mat-form-field class="example-radnici" appearance="fill">
+              <mat-label>Racun kreirao: </mat-label>
+              <mat-select placeholder="racunKreirao" name="radnik" [(ngModel)]="selectedRadnik"
+                          [compareWith]="equalsRadnik">
+                <mat-option *ngFor="let radnici of radnici.radnici" [value]="radnici">
+                  {{radnici.imePrezime}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <mat-form-field style="width: 12rem">
+            <mat-label style="font-size: 13.5px">Ime Prezime Radnika</mat-label>
+            <input matInput disabled value="{{selectedRadnik.imePrezime}}">
+          </mat-form-field>
+          </div>
+          <div class="example-button-row-save">
+          <button mat-stroked-button type="button" class="button-example td-button" (click)="sacuvajRacun()">
+            <mat-icon>save</mat-icon>Potvrdi</button>
+          <button mat-stroked-button type="button" class="button-example" (click)="odustaniOdRacuna()" routerLink="">
+            <mat-icon>reply</mat-icon>Odustani</button>
+          </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</form>
+

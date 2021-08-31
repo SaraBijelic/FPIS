@@ -1,0 +1,67 @@
+<form #pretragaZahteva="ngForm">
+  <mat-card class="card-zahtev-container mat-elevation-z8">
+    <mat-card-title class="card-zahtev-title">Pretraga otpremnica</mat-card-title>
+    <mat-card-content>
+
+      <div class="example-form">
+        <div class="example-full-width">
+
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="otpremnicaZaKupcaID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" floatLabel="never">
+                  <input matInput placeholder="ID Otpremnice" name="otpremnicaID" [formControl]="idFilter">
+                </mat-form-field></th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.otpremnicaZaKupcaID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="otpremnicuPrimio">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Otpremnicu Primio</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.otpremnicuPrimio}} </td>
+            </ng-container>
+            <ng-container matColumnDef="datumOtpremanja">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>
+                <mat-form-field class="filter" floatLabel="never">
+                  <input matInput type="date" placeholder="Datum" name="datum" [formControl]="datumFilter">
+                  <mat-hint align="end">format: mm/dd/yyyy</mat-hint>
+                </mat-form-field></th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.datumOtpremanja | date:  "mediumDate"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="radnikDoprema">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header>Radnik Doprema</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.radnikDoprema.imePrezime}} </td>
+            </ng-container>
+            <ng-container matColumnDef="kupacOtp">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> KupacID </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.kupacOtp.nazivKupca}} </td>
+            </ng-container>
+            <ng-container matColumnDef="radnikKreirao">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Radnik Kreirao </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.radnikKreirao.imePrezime}} </td>
+            </ng-container>
+
+            <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsOtpremnica"></tr>
+            <tr mat-row class="table-row-height" (click)="onClick(row); clickedRows.add(row)"
+                [class.demo-row-is-clicked]="clickedRows.has(row)"
+                *matRowDef="let row; columns: displayedColumnsOtpremnica;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter</td>
+            </tr>
+          </table>
+          <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
+        <div class="example-full-first">
+          <div class="example-button-row-save">
+            <button mat-raised-button type="button" class="button-example td-button"
+                    (click)="saveOtpremnicaInStorage(clickedRow)" routerLink="/{{forma}}">
+              <mat-icon>check</mat-icon>Izaberi otpremnicu</button>
+            <button mat-raised-button type="button" class="button-example" routerLink="/{{forma}}">
+              <mat-icon>reply</mat-icon>Odustani</button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+
+

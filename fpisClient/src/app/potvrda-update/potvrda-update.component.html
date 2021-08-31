@@ -1,0 +1,153 @@
+<form #updatePotvrdaForm="ngForm">
+  <mat-card class="card-potvrda-container mat-elevation-z8">
+    <mat-card-title class="card-potvrda-title">Izmena Potvrde o kvalitetu</mat-card-title>
+    <mat-card-content>
+
+      <div class="example-form">
+        <div class="example-full-first example-button-row">
+          <mat-form-field class="filter" style="margin-right: 2rem; color: black">
+            <input matInput placeholder="Unesite ID potvrde" name="IDPotvrde" [formControl]="idFilter">
+          </mat-form-field>
+          <mat-form-field class="filter">
+            <input matInput type="date" placeholder="Datum potvrde" style="color: black"
+                   name="datum" [formControl]="datumFilter">
+            <mat-hint align="end">format: mm/dd/yyyy</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="example-form">
+        <div class="example-full-width">
+          <div class="example-button-row">
+            <button mat-stroked-button class="button-example" (click)="izabranaPotvrda()">
+              <mat-icon>check</mat-icon>Izaberi potvrdu</button>
+          </div>
+
+          <table mat-table [dataSource]="dataSourceP" class="table-example" matSort>
+            <ng-container matColumnDef="potvrdaID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> PotvrdaID</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.potvrdaOKvalitetuID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="zahtevID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> ZahtevID </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.zahtev.zahtevID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="datumPotvrde">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Datum </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.datumPotvrde | date:  "mediumDate"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="mestoIzdavanja">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Mesto Izdavanja </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.mestoIzdavanja}} </td>
+            </ng-container>
+            <ng-container matColumnDef="vrstaRobe">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Vrsta Robe </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.vrstaRobe}} </td>
+            </ng-container>
+            <ng-container matColumnDef="opis">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef mat-sort-header> Opis </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.opisPotvrde}} </td>
+            </ng-container>
+
+            <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsPotvdra"></tr>
+            <tr mat-row class="table-row-height" (click)="onClick(row); clickedRows.add(row)"
+                [class.demo-row-is-clicked]="clickedRows.has(row)"
+                *matRowDef="let row; columns: displayedColumnsPotvdra;"></tr>
+          </table>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter</td>
+          </tr>
+          <mat-paginator class="mat-paginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </div>
+
+      <div class="example-form">
+        <mat-form-field class="example-full-first">
+          <mat-label style="font-size: 15px">Potvrda o kvalitetu ID</mat-label>
+          <input matInput disabled [value]=izmenjenaPotvrda.potvrdaOKvalitetuID>
+        </mat-form-field>
+      </div>
+      <div class="example-form">
+        <div class="example-full-width">
+          <div class="example-button-row">
+            <button mat-stroked-button type="button" class="button-example" (click)="formaZahteva()" routerLink="/zahtev">
+              <mat-icon>search</mat-icon>Pretraga zahteva</button>
+            <mat-label class="example-label">Podaci o zahtevu</mat-label>
+          </div>
+
+          <table mat-table [dataSource]="dataSource" class="table-example">
+            <ng-container matColumnDef="zahtevID">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> ZahtevID</th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.zahtevID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="proizvodIDZaProveru">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> ProizvodID Za Proveru </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.proizvod.proizvodID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="datum">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> Datum </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.datum | date:  "mediumDate"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="napomena">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> Napomena </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.napomena}} </td>
+            </ng-container>
+            <ng-container matColumnDef="zahtevKreirao">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> Zahtev Kreirao </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.radnik.imePrezime}} </td>
+            </ng-container>
+            <ng-container matColumnDef="veterinarIDPrimio">
+              <th mat-header-cell class="table-date-size" *matHeaderCellDef> VeterinarID Primio </th>
+              <td mat-cell class="table-date-size" *matCellDef="let element"> {{element.veterinar.veterinarID}} </td>
+            </ng-container>
+
+            <tr mat-header-row class="table-row-height" *matHeaderRowDef="displayedColumnsZahtev"></tr>
+            <tr mat-row class="table-row-height" *matRowDef="let row; columns: displayedColumnsZahtev;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="example-form">
+        <div class="example-full-first">
+          <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="center">
+            <div fxFlex="35%">
+              <mat-form-field class="example-width">
+                <input type="date" matInput placeholder="Unesite datum kreiranja" name="datum" style="color: black"
+                       [ngModel]="izmenjenaPotvrda.datumPotvrde| date:'yyyy-MM-dd'"
+                       (ngModelChange)="izmenjenaPotvrda.datumPotvrde = $event">
+                <mat-hint align="end">format: mm/dd/yyyy</mat-hint>
+              </mat-form-field>
+            </div>
+            <div fxFlex="35%">
+              <mat-form-field class="example-width-end">
+                <input matInput type="text" placeholder="Mesto izdavanja" name="mesto" style="color: black"
+                       [(ngModel)]="izmenjenaPotvrda.mestoIzdavanja">
+              </mat-form-field></div>
+            <div fxFlex="35%">
+              <mat-form-field class="example-width-end">
+                <input matInput type="text" placeholder="Vrsta robe" name="vrsta" style="color: black"
+                       [(ngModel)]="izmenjenaPotvrda.vrstaRobe">
+              </mat-form-field></div>
+          </div>
+
+          <div class="example-full-end">
+            <div class="example-button-row-save">
+              <mat-form-field class="example-width-opis">
+                  <textarea matInput type="text" placeholder="Opis potvrde" name="opis" style="color: black"
+                            [(ngModel)]="izmenjenaPotvrda.opisPotvrde"></textarea>
+              </mat-form-field>
+              <button mat-stroked-button type="button" class="button-example td-button" (click)="unesiPotvrdu()" routerLink="/potvrda-update">
+                <mat-icon>save</mat-icon>Izmeni potvrdu</button>
+              <button mat-stroked-button type="button" class="button-example" (click)="izbrisiPotvrdu()" routerLink="/potvrda-update">
+                <mat-icon>reply</mat-icon>Izbrisi potvrdu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="example-button-row-save">
+      <button mat-stroked-button type="button" class="button-example" routerLink="">
+        <mat-icon>reply</mat-icon>Odustani</button></div>
+    </mat-card-content>
+  </mat-card>
+</form>
+
